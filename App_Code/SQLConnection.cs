@@ -13,11 +13,11 @@ public class Table_Template
 {
     public long ID { get; set; }
     public string Nvarchar { get; set; }
-    public DateTime Date { get; set; }
+    public string Date { get; set; }
     public decimal Decimal { get; set; }
     public bool Boolean { get; set; }
     public int Int { get; set; }
-    public DateTime DateTime { get; set; }
+    public string DateTime { get; set; }
 
 }
 
@@ -59,7 +59,7 @@ public class SQLConnection
    }
 
 
-    public string RUN_Sql_Command_With_Recordset_as_Result(string InsertSQL)
+    public string RUN_Sql_Table_Template_View(string InsertSQL)
     {
         var serializedResult = "";
         var TableTemplate = new List<Table_Template>();
@@ -72,23 +72,21 @@ public class SQLConnection
             {
                 while (reader.Read())
                 {
+                    DateTime date1 = new DateTime();
+                    DateTime date3 = new DateTime();
+                    DateTime.TryParse(reader.GetString(2), out date1);
+                    DateTime date2 = new DateTime(date1.Year, date1.Month, date1.Day);
+                    date3 = reader.GetDateTime(6);
                     TableTemplate.Add(new Table_Template()
                     {
                         ID = reader.GetInt32(0),
                         Nvarchar = reader.GetString(1),
-                        //Date = reader.GetDateTime(2),
+                        Date = date2.ToString("yyyyMMdd"),
                         Decimal = reader.GetDecimal(3),
                         Boolean = reader.GetBoolean(4),
                         Int = reader.GetInt32(5),
-                        DateTime = reader.GetDateTime(6)
-                    });
-                    //string ID = reader.GetValue(0).ToString();
-                    //string Nvarchar = reader.GetString(1);
-                    //[Date]
-                    //[Decimal]
-                    //[Boolean]
-                    //[Int]
-                    //[DateTime]                    
+                        DateTime = date3.ToString("yyyyMMddHHmmss")
+                     });
                 }
             }
             else

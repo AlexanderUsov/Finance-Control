@@ -22,13 +22,13 @@ public class WebService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string HelloWorld()
+    private string HelloWorld()
     {
         return "Hello World";
     }
 
     [WebMethod]
-    public string SQLConnect(string SQLString = "")
+    private string SQLConnect(string SQLString = "")
     {
         SQLString = SQLString.Trim(); 
         int StrLen = SQLString.Length;
@@ -49,7 +49,7 @@ public class WebService : System.Web.Services.WebService
         
         string SQLString = "sp_Table_Template_View";       
         SQLConnection SQLCon = new SQLConnection();
-        var json = SQLCon.RUN_Sql_Command_With_Recordset_as_Result(SQLString);
+        var json = SQLCon.RUN_Sql_Table_Template_View(SQLString);
 
         return json;
     }

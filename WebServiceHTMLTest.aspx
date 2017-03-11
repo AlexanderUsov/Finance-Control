@@ -10,8 +10,12 @@
     <form id="form1" runat="server">
     <div>
     
+        <asp:Label ID="Label2" runat="server" Text="Чтение Table_Template_View"></asp:Label>
+    
     </div>
-        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+        <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Старт" />
+        <br />
+        <br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </form>
 </body>
