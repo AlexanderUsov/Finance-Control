@@ -23,9 +23,39 @@ public partial class WebServiceHTMLTest : System.Web.UI.Page
         DateTime date1 = new DateTime(Int32.Parse(deserializedResult[0].Date.Substring(0,4)), Int32.Parse(deserializedResult[0].Date.Substring(4, 2)),Int32.Parse(deserializedResult[0].Date.Substring(6, 2)));
         DateTime date2 = new DateTime(Int32.Parse(deserializedResult[0].DateTime.Substring(0, 4)), Int32.Parse(deserializedResult[0].DateTime.Substring(4, 2)), Int32.Parse(deserializedResult[0].DateTime.Substring(6, 2)),
                                       Int32.Parse(deserializedResult[0].DateTime.Substring(8, 2)), Int32.Parse(deserializedResult[0].DateTime.Substring(10, 2)), Int32.Parse(deserializedResult[0].DateTime.Substring(12, 2)));
-        Label1.Text = deserializedResult[0].ID.ToString() + " - " + deserializedResult[0].Nvarchar.ToString() + " - " + date1.ToString()
+        Label5.Text = deserializedResult[0].ID.ToString() + " - " + deserializedResult[0].Nvarchar.ToString() + " - " + date1.ToString()
             + " - " + deserializedResult[0].Decimal.ToString() + " - " + deserializedResult[0].Boolean.ToString() + " - " + deserializedResult[0].Int.ToString()    
-            + " - " + date2.ToString();
-        //Label1.Text = deserializedResult[2].DateTime.ToString();
+            + " - " + date2.ToString();        
     }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        ServiceReference1.WebServiceSoapClient WS = new ServiceReference1.WebServiceSoapClient();
+        var TableTemplate = new List<Table_Template>();
+        var serializer = new JavaScriptSerializer();       
+        TableTemplate.Add(new Table_Template()
+        {
+            Nvarchar = "Следующий элемент",
+            Date = "20180101",
+            Decimal = 44.19m,
+            Boolean = true,
+            Int = 87,
+            DateTime = "20180401002043"
+        });
+        var serializedtable = serializer.Serialize(TableTemplate);        
+        var serializedserviceresult = WS.Table_Template_Add(serializedtable);
+        var deserializedResult = serializer.Deserialize<List<WebService_Error>>(serializedserviceresult);
+
+        if (deserializedResult[0].Result == 1)
+        {
+            Label4.Text = "Сохранено успешно";
+                }
+        else
+        {
+           Label4.Text = "Возникли ошибки:" + deserializedResult[0].SQL_Error_Message + " / процедура SQL - " + deserializedResult[0].SQL_Error_Procedure + " / строка - " + deserializedResult[0].SQL_Error_Line + " / "; 
+        }
+
+
+    }
+
 }

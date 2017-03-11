@@ -41,18 +41,31 @@ public class WebService : System.Web.Services.WebService
         return SQLString+StrLen.ToString();    
     }
 
-
+    // Some examples with Table_Template:
+    // Table_Template_View() - return json with Table_Template rows
+    // Table_Template_Add(json) - add new row with fields in json
+    // Table_Template_Delete(ID) - delete row with Primary Key = ID
+    // Table_Template_Edit(ID,json) - update row with Primary Key = ID
 
     [WebMethod]
     public string Table_Template_View()
-    {
-        
+    {        
         string SQLString = "sp_Table_Template_View";       
         SQLConnection SQLCon = new SQLConnection();
         var json = SQLCon.RUN_Sql_Table_Template_View(SQLString);
-
+        SQLCon.SQLConnection_close();
         return json;
     }
 
+
+    [WebMethod]
+    public string Table_Template_Add(string json)
+    {
+        string SQLString = "sp_Table_Template_Add";
+        SQLConnection SQLCon = new SQLConnection();
+        var jsonresult = SQLCon.RUN_Sql_Table_Template_Add(SQLString,json);
+        SQLCon.SQLConnection_close();
+        return jsonresult;
+    }
 
 }
