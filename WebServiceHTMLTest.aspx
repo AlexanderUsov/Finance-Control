@@ -38,6 +38,16 @@
         <br />
         <br />
         <asp:Label ID="Label8" runat="server" Text="Результат появится тут"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label9" runat="server" Text="4. Удаление записи Table_View_Delete"></asp:Label>
+        <br />
+        <br />
+        <asp:Button ID="Button4" runat="server" Text="Старт" OnClick="Button4_Click" />
+        <br />
+        <br />
+        <asp:Label ID="Label10" runat="server" Text="Результат появится тут"></asp:Label>
+
     </form>
 </body>
 </html>

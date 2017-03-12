@@ -79,4 +79,15 @@ public class WebService : System.Web.Services.WebService
         return jsonresult;
     }
 
+
+    [WebMethod]
+    public string Table_Template_Delete(long ID)
+    {
+        string SQLString = "sp_Table_Template_Delete";
+        SQLConnection SQLCon = new SQLConnection();
+        var jsonresult = SQLCon.RUN_Sql_Table_Template_Delete(SQLString, ID);
+        SQLCon.SQLConnection_close();
+        return jsonresult;
+    }
+
 }
