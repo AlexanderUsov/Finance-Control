@@ -23,7 +23,7 @@
         <asp:Label ID="Label5" runat="server" Text="Результат появится тут"></asp:Label>
         <br />
         <p>
-            <asp:Label ID="Label3" runat="server" Text="2. Добавление записи Table_View_Add"></asp:Label>
+            <asp:Label ID="Label3" runat="server" Text="2. Добавление записи Table_Template_Add"></asp:Label>
         </p>
         <asp:Button ID="Button2" runat="server" Text="Старт" OnClick="Button2_Click" />
         <br />
@@ -31,7 +31,7 @@
         <asp:Label ID="Label4" runat="server" Text="Результат появится тут"></asp:Label>
         <br />
         <br />
-        <asp:Label ID="Label7" runat="server" Text="3. Обновление записи Table_View_Edit"></asp:Label>
+        <asp:Label ID="Label7" runat="server" Text="3. Обновление записи Table_Template_Edit"></asp:Label>
         <br />
         <br />
         <asp:Button ID="Button3" runat="server" Text="Старт" OnClick="Button3_Click" />
@@ -40,7 +40,7 @@
         <asp:Label ID="Label8" runat="server" Text="Результат появится тут"></asp:Label>
         <br />
         <br />
-        <asp:Label ID="Label9" runat="server" Text="4. Удаление записи Table_View_Delete"></asp:Label>
+        <asp:Label ID="Label9" runat="server" Text="4. Удаление записи Table_Template_Delete"></asp:Label>
         <br />
         <br />
         <asp:Button ID="Button4" runat="server" Text="Старт" OnClick="Button4_Click" />
