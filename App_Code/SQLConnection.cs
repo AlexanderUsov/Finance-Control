@@ -184,4 +184,70 @@ public class SQLConnection
         return serializedResult;
     }
 
+
+
+
+    public string RUN_Sql_Table_Template_Edit(string InsertSQL, string jsonnewrow, long ID)
+    {
+        int ibool;
+        long iDec;
+        decimal jDec;
+        string strDateTime;
+        
+        var ErrorTable = new List<WebService_Error>();
+
+        var TableTemplate = new List<Table_Template>();
+        var serializer = new JavaScriptSerializer();
+        var deserializedResult = serializer.Deserialize<List<Table_Template>>(jsonnewrow);
+
+
+        jDec = deserializedResult[0].Decimal * 100;
+        iDec = Convert.ToInt64(jDec);
+
+
+        if (deserializedResult[0].Boolean == true)
+        {
+            ibool = 1;
+        }
+        else
+        {
+            ibool = 0;
+        }
+
+        strDateTime = deserializedResult[0].DateTime.ToString().Substring(0, 8) + " " + deserializedResult[0].DateTime.ToString().Substring(8, 2) + ":" + deserializedResult[0].DateTime.ToString().Substring(10, 2) + ":" + deserializedResult[0].DateTime.ToString().Substring(12, 2);
+        InsertSQL = InsertSQL + " '" + deserializedResult[0].Nvarchar.ToString() + "','" + deserializedResult[0].Date.ToString() + "'," + iDec.ToString() + "," + ibool.ToString() + "," + deserializedResult[0].Int.ToString() + ",'" + strDateTime + "'," + ID.ToString();
+
+
+        OleDbCommand command = new OleDbCommand(InsertSQL);
+        command.Connection = connection;
+        try
+        {
+            OleDbDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                ErrorTable.Add(new WebService_Error()
+                {
+                    Result = reader.GetInt32(0),
+                    SQL_Error_Message = reader.GetString(1),
+                    SQL_Error_Procedure = reader.GetString(2),
+                    SQL_Error_Line = reader.GetString(3)
+                });
+
+            }
+            else
+            {
+
+            }
+            reader.Close();
+        }
+        catch (Exception exc)
+        {
+            Console.WriteLine(exc);
+        }
+
+        var serializedResult = serializer.Serialize(ErrorTable);
+        return serializedResult;
+    }
+
 }

@@ -68,4 +68,15 @@ public class WebService : System.Web.Services.WebService
         return jsonresult;
     }
 
+
+    [WebMethod]
+    public string Table_Template_Edit(string json, long ID)
+    {
+        string SQLString = "sp_Table_Template_Edit";
+        SQLConnection SQLCon = new SQLConnection();
+        var jsonresult = SQLCon.RUN_Sql_Table_Template_Edit(SQLString, json, ID);
+        SQLCon.SQLConnection_close();
+        return jsonresult;
+    }
+
 }

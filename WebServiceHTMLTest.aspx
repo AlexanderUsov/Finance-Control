@@ -30,6 +30,14 @@
         <br />
         <asp:Label ID="Label4" runat="server" Text="Результат появится тут"></asp:Label>
         <br />
+        <br />
+        <asp:Label ID="Label7" runat="server" Text="3. Обновление записи Table_View_Edit"></asp:Label>
+        <br />
+        <br />
+        <asp:Button ID="Button3" runat="server" Text="Старт" OnClick="Button3_Click" />
+        <br />
+        <br />
+        <asp:Label ID="Label8" runat="server" Text="Результат появится тут"></asp:Label>
     </form>
 </body>
 </html>

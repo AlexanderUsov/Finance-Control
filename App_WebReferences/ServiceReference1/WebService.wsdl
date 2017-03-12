@@ -26,6 +26,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="Table_Template_Edit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="json" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Table_Template_EditResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Table_Template_EditResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="string" nillable="true" type="s:string" />
     </s:schema>
   </wsdl:types>
@@ -41,6 +56,12 @@
   <wsdl:message name="Table_Template_AddSoapOut">
     <wsdl:part name="parameters" element="tns:Table_Template_AddResponse" />
   </wsdl:message>
+  <wsdl:message name="Table_Template_EditSoapIn">
+    <wsdl:part name="parameters" element="tns:Table_Template_Edit" />
+  </wsdl:message>
+  <wsdl:message name="Table_Template_EditSoapOut">
+    <wsdl:part name="parameters" element="tns:Table_Template_EditResponse" />
+  </wsdl:message>
   <wsdl:message name="Table_Template_ViewHttpGetIn" />
   <wsdl:message name="Table_Template_ViewHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
@@ -49,6 +70,13 @@
     <wsdl:part name="json" type="s:string" />
   </wsdl:message>
   <wsdl:message name="Table_Template_AddHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Table_Template_EditHttpGetIn">
+    <wsdl:part name="json" type="s:string" />
+    <wsdl:part name="ID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Table_Template_EditHttpGetOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
   <wsdl:message name="Table_Template_ViewHttpPostIn" />
@@ -61,6 +89,13 @@
   <wsdl:message name="Table_Template_AddHttpPostOut">
     <wsdl:part name="Body" element="tns:string" />
   </wsdl:message>
+  <wsdl:message name="Table_Template_EditHttpPostIn">
+    <wsdl:part name="json" type="s:string" />
+    <wsdl:part name="ID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Table_Template_EditHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
   <wsdl:portType name="WebServiceSoap">
     <wsdl:operation name="Table_Template_View">
       <wsdl:input message="tns:Table_Template_ViewSoapIn" />
@@ -69,6 +104,10 @@
     <wsdl:operation name="Table_Template_Add">
       <wsdl:input message="tns:Table_Template_AddSoapIn" />
       <wsdl:output message="tns:Table_Template_AddSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <wsdl:input message="tns:Table_Template_EditSoapIn" />
+      <wsdl:output message="tns:Table_Template_EditSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="WebServiceHttpGet">
@@ -80,6 +119,10 @@
       <wsdl:input message="tns:Table_Template_AddHttpGetIn" />
       <wsdl:output message="tns:Table_Template_AddHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <wsdl:input message="tns:Table_Template_EditHttpGetIn" />
+      <wsdl:output message="tns:Table_Template_EditHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="WebServiceHttpPost">
     <wsdl:operation name="Table_Template_View">
@@ -89,6 +132,10 @@
     <wsdl:operation name="Table_Template_Add">
       <wsdl:input message="tns:Table_Template_AddHttpPostIn" />
       <wsdl:output message="tns:Table_Template_AddHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <wsdl:input message="tns:Table_Template_EditHttpPostIn" />
+      <wsdl:output message="tns:Table_Template_EditHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
@@ -104,6 +151,15 @@
     </wsdl:operation>
     <wsdl:operation name="Table_Template_Add">
       <soap:operation soapAction="http://tempuri.org/Table_Template_Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <soap:operation soapAction="http://tempuri.org/Table_Template_Edit" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -132,6 +188,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <soap12:operation soapAction="http://tempuri.org/Table_Template_Edit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebServiceHttpGet" type="tns:WebServiceHttpGet">
     <http:binding verb="GET" />
@@ -153,6 +218,15 @@
         <mime:mimeXml part="Body" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <http:operation location="/Table_Template_Edit" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="WebServiceHttpPost" type="tns:WebServiceHttpPost">
     <http:binding verb="POST" />
@@ -167,6 +241,15 @@
     </wsdl:operation>
     <wsdl:operation name="Table_Template_Add">
       <http:operation location="/Table_Template_Add" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Table_Template_Edit">
+      <http:operation location="/Table_Template_Edit" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

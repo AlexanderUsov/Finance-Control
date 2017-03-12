@@ -48,7 +48,7 @@ public partial class WebServiceHTMLTest : System.Web.UI.Page
 
         if (deserializedResult[0].Result == 1)
         {
-            Label4.Text = "Сохранено успешно";
+            Label4.Text = "Добавлено успешно";
                 }
         else
         {
@@ -58,4 +58,34 @@ public partial class WebServiceHTMLTest : System.Web.UI.Page
 
     }
 
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        long ID = 2;
+        ServiceReference1.WebServiceSoapClient WS = new ServiceReference1.WebServiceSoapClient();
+        var TableTemplate = new List<Table_Template>();
+        var serializer = new JavaScriptSerializer();
+        TableTemplate.Add(new Table_Template()
+        {
+            Nvarchar = "Следующий обновленный элемент",
+            Date = "20190101",
+            Decimal = 0.19m,
+            Boolean = false,
+            Int = 79,
+            DateTime = "20190401002043"
+        });
+        var serializedtable = serializer.Serialize(TableTemplate);
+        var serializedserviceresult = WS.Table_Template_Edit(serializedtable,ID);
+        var deserializedResult = serializer.Deserialize<List<WebService_Error>>(serializedserviceresult);
+
+        if (deserializedResult[0].Result == 1)
+        {
+            Label8.Text = "Обновлено успешно";
+        }
+        else
+        {
+            Label8.Text = "Возникли ошибки:" + deserializedResult[0].SQL_Error_Message + " / процедура SQL - " + deserializedResult[0].SQL_Error_Procedure + " / строка - " + deserializedResult[0].SQL_Error_Line + " / ";
+        }
+
+    }
 }
